@@ -1,0 +1,48 @@
+<!ELEMENT Images (image+)>
+        <!ELEMENT image (
+                ImageID?,
+                ImageDir?,
+                StudyID?,
+                PatientID?,
+                PatientBirth?,
+                Projection?,
+                MethodProjection?,
+                Pediatric?,
+                ReportID?,
+                Report?,
+                MethodLabel?,
+                Labels?,
+                Localizations?,
+                LabelsLocalizationsBySentence?,
+                labelCUIS?,
+                LocalizationsCUIS?
+                )>
+        <!ATTLIST image Identifiant ID #REQUIRED>
+
+        <!ELEMENT ImageID (#PCDATA)>
+        <!ELEMENT ImageDir (#PCDATA)>
+        <!ELEMENT StudyID (#PCDATA)>
+        <!ELEMENT PatientID (#PCDATA)>
+        <!ELEMENT PatientBirth (#PCDATA)>
+        <!ELEMENT Projection (#PCDATA)>
+        <!ELEMENT MethodProjection (#PCDATA)>
+        <!ELEMENT Pediatric (#PCDATA)>
+        <!ELEMENT ReportID (#PCDATA)>
+        <!ELEMENT Report (#PCDATA)>
+        <!ELEMENT MethodLabel (#PCDATA)>
+
+        <!ELEMENT Labels (Label*)>
+        <!ELEMENT Label (#PCDATA)>
+
+        <!ELEMENT Localizations (Localization*)>
+        <!ELEMENT Localization (#PCDATA)>
+
+        <!ELEMENT LabelsLocalizationsBySentence (Sentence*)>
+        <!ELEMENT Sentence (LabelSentence*)>
+        <!ELEMENT LabelSentence (#PCDATA)>
+
+        <!ELEMENT labelCUIS (labelCUI*)>
+        <!ELEMENT labelCUI (#PCDATA)>
+
+        <!ELEMENT LocalizationsCUIS (LocalizationsCUI*)>
+        <!ELEMENT LocalizationsCUI (#PCDATA)>
