@@ -23,7 +23,7 @@ public class Orchestre {
             reader.closeFile();
 
             // 2 - Fix des lignes cassées
-            ArrayList<String> fixedLines = fixBrokenLines(rawLines);
+            ArrayList<String> fixedLines = CsvParser.fixBrokenLines(rawLines);
 
             // 3 - Écrire XML
             MyFileWriter writer = new MyFileWriter("src/main/resources/PADCHEST.xml");
@@ -55,36 +55,6 @@ public class Orchestre {
         System.out.println("\n[Timer] Conversion terminée en " + ((endTime - startTime) / 1000.0) + " secondes.");
     }
 
-    // ---------------------------------------------------------------------
-    // === Fix des lignes cassées (multi-lignes Python array) ===
-    // ---------------------------------------------------------------------
-    public static ArrayList<String> fixBrokenLines(ArrayList<String> lines) {
-
-        ArrayList<String> fixed = new ArrayList<>();
-        StringBuilder current = new StringBuilder();
-
-        for (String line : lines) {
-
-            // Une vraie ligne commence par un ID numérique suivi d'une virgule
-            if (line.matches("^\\d+,.*")) {
-
-                if (current.length() > 0) {
-                    fixed.add(current.toString());
-                }
-
-                current = new StringBuilder(line);
-
-            } else {
-                current.append(" ").append(line.trim());
-            }
-        }
-
-        if (current.length() > 0) {
-            fixed.add(current.toString());
-        }
-
-        return fixed;
-    }
 
 
 }

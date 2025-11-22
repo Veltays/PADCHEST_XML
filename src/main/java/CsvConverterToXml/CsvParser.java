@@ -114,5 +114,35 @@ public class CsvParser {
 
         return line;
     }
+    // ---------------------------------------------------------------------
+    // === Fix des lignes cassées (multi-lignes Python array) ===
+    // ---------------------------------------------------------------------
+    public static ArrayList<String> fixBrokenLines(ArrayList<String> lines) {
+
+        ArrayList<String> fixed = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+
+        for (String line : lines) {
+
+            // Une vraie ligne commence par un ID numérique suivi d'une virgule
+            if (line.matches("^\\d+,.*")) {
+
+                if (current.length() > 0) {
+                    fixed.add(current.toString());
+                }
+
+                current = new StringBuilder(line);
+
+            } else {
+                current.append(" ").append(line.trim());
+            }
+        }
+
+        if (current.length() > 0) {
+            fixed.add(current.toString());
+        }
+
+        return fixed;
+    }
 
 }

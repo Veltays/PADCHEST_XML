@@ -1,13 +1,11 @@
 import java.util.Scanner;
-
-// Imports vers tes classes (à adapter selon leur package réel)
 import Benchmark.Benchmarks;
 import CsvConverterToXml.Orchestre;
 import DOMParser.DOMParserXSDImages;
 import SAXParser.SAXParserDTDImages;
 import SAXParser.SAXParserXSDImages;
 import DOMParser.DOMParserDTDImages;
-// import DOMParser.DOMParserXSDImages;
+
 
 public class Main {
 
@@ -78,8 +76,4 @@ public class Main {
         sc.close();
     }
 
-    public static long getUsedMemory() {
-        Runtime runtime = Runtime.getRuntime();
-        return runtime.totalMemory() - runtime.freeMemory();
-    }
 }
