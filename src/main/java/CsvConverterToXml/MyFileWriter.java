@@ -8,7 +8,7 @@ public class MyFileWriter {
 
     private final String filePath;
     private FileWriter fileWriter;
-    public static String AllHeader[];
+    public static String[] AllHeader;
     public static int depth =0;
 
 

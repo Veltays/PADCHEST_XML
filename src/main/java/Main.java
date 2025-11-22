@@ -9,7 +9,7 @@ import DOMParser.DOMParserDTDImages;
 
 public class Main {
 
-    public static void main(String[] args) {
+    static void main() {
 
         Scanner sc = new Scanner(System.in);
         int choix = -1;
@@ -38,20 +38,20 @@ public class Main {
 
                 case 2:
                     System.out.println("→ Lancement du parser SAX avec DTD...");
-                    Benchmarks.run("SAX + DTD", () -> SAXParserDTDImages.main());
+                    Benchmarks.run("SAX + DTD", SAXParserDTDImages::main);
                     break;
 
                 case 3:
                     System.out.println("→ Lancement du parser SAX avec XSD...");
-                    Benchmarks.run("SAX + XSD", () -> SAXParserXSDImages.main());
+                    Benchmarks.run("SAX + XSD", SAXParserXSDImages::main);
                     break;
 
                 case 4:
-                    Benchmarks.run("DOM + DTD", () -> DOMParserDTDImages.main());
+                    Benchmarks.run("DOM + DTD", DOMParserDTDImages::main);
                     break;
 
                 case 5:
-                    Benchmarks.run("DOM + XSD", () -> DOMParserXSDImages.main());
+                    Benchmarks.run("DOM + XSD", DOMParserXSDImages::main);
                     break;
 
                 case 6:

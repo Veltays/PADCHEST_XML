@@ -20,9 +20,7 @@ public class MyFileReader {
             br = new BufferedReader(fileReader);
 
         } catch (IOException e) {
-            StringBuilder sb = new StringBuilder("[MyFileReader] Erreur lors de l'ouverture du fichier : ");
-            sb.append(e.getMessage());
-            System.err.println(sb);
+            System.err.println("[MyFileReader] Erreur lors de l'ouverture du fichier : " + e.getMessage());
         }
     }
 
@@ -32,9 +30,7 @@ public class MyFileReader {
                 br.close();
 
         } catch (IOException e) {
-            StringBuilder sb = new StringBuilder("[MyFileReader] Erreur lors de la fermeture du fichier : ");
-            sb.append(e.getMessage());
-            System.err.println(sb);
+            System.err.println("[MyFileReader] Erreur lors de la fermeture du fichier : " + e.getMessage());
         }
     }
 
@@ -46,9 +42,7 @@ public class MyFileReader {
                 System.err.println("[MyFileReader] Le fichier n'est pas ouvert.");
             }
         } catch (IOException e) {
-            StringBuilder sb = new StringBuilder("[MyFileReader] Erreur lors de la lecture de la ligne : ");
-            sb.append(e.getMessage());
-            System.err.println(sb);
+            System.err.println("[MyFileReader] Erreur lors de la lecture de la ligne : " + e.getMessage());
         }
 
         return null;
@@ -72,9 +66,7 @@ public class MyFileReader {
             }
 
         } catch (IOException e) {
-            StringBuilder sb = new StringBuilder("[MyFileReader] Erreur lors de la lecture complète : ");
-            sb.append(e.getMessage());
-            System.err.println(sb);
+            System.err.println("[MyFileReader] Erreur lors de la lecture complète : " + e.getMessage());
         }
 
         return lines;

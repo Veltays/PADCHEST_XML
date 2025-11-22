@@ -32,7 +32,7 @@ public class Orchestre {
             writer.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             writer.WriteLine("<!DOCTYPE Images SYSTEM \"validator.dtd\">");
 
-            String headerLine = fixedLines.get(0);
+            String headerLine = fixedLines.getFirst();
             writer.setAllHeader(CsvParser.GetAllHeaders(headerLine));
             writer.WriteFirstBalise("Images");
 
@@ -48,6 +48,7 @@ public class Orchestre {
             writer.closeFile();
 
         } catch (Exception e) {
+            System.out.println("[Orchestre] Erreur lors de la conversion CSV → XML : " + e.getMessage());
             e.printStackTrace();
         }
 

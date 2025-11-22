@@ -96,7 +96,7 @@ public class CsvParser {
             }
         }
 
-        if (mot.length() > 0) {
+        if (!mot.isEmpty()) {
             mots.add(mot.toString().trim());
         }
 
@@ -127,7 +127,8 @@ public class CsvParser {
             // Une vraie ligne commence par un ID numérique suivi d'une virgule
             if (line.matches("^\\d+,.*")) {
 
-                if (current.length() > 0) {
+                // si current n'est pas vide, on l'ajoute avant de commencer une nouvelle ligne
+                if (!current.isEmpty()) {
                     fixed.add(current.toString());
                 }
 
@@ -138,7 +139,7 @@ public class CsvParser {
             }
         }
 
-        if (current.length() > 0) {
+        if (!current.isEmpty()) {
             fixed.add(current.toString());
         }
 
