@@ -115,7 +115,7 @@ public class MyFileWriter {
     public void WriteXMLLine(String[] line) {
 
         if (line == null || line.length == 0) {
-            System.err.println("⚠ Ligne vide ignorée !");
+            System.err.println(" Ligne vide ignorée !");
             return; // skip
         }
 

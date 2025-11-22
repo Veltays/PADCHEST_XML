@@ -25,6 +25,8 @@ public class Main {
             System.out.println("4. Lancer DOM (validation DTD)");
             System.out.println("5. Lancer DOM (validation XSD)");
             System.out.println("6. Lancer Test Comparatif (validation DTD/XSD)");
+            System.out.println("7. Lancer statistique Convertisseur CSV → XML");
+
             System.out.println("0. Quitter");
             System.out.print("Votre choix : ");
 
@@ -57,6 +59,10 @@ public class Main {
                 case 6:
                     System.out.println("→ Lancement des benchmarks...");
                     Benchmark.Benchmarks.runAll();
+                    break;
+                case 7:
+                    System.out.println("→ Lancement du convertisseur CSV → XML avec statistiques...");
+                    Benchmark.Benchmarks.runConverterOnly();
                     break;
 
                 case 0:

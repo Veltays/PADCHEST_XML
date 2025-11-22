@@ -1,7 +1,6 @@
 package SAXParser;
 
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.XMLConstants;
@@ -17,60 +16,75 @@ public class SAXParserXSDImages {
         System.out.println("→ Lancement du parser SAX avec XSD...");
 
         try {
-            // Charger le fichier XSD
+            // ====== FICHIERS ======
             File xsdFile = new File("src/main/resources/validator.xsd");
-            if (!xsdFile.exists()) {
-                System.err.println(" ERREUR : validator.xsd introuvable !");
-                return;
-            }
-
-            // Charger le fichier XML
             File xmlFile = new File("src/main/resources/PADCHEST.xml");
-            if (!xmlFile.exists()) {
-                System.err.println("ERREUR : PADCHEST.xml introuvable !");
+
+            if (!xsdFile.exists() || !xmlFile.exists()) {
+                System.err.println("ERREUR : Fichier introuvable !");
                 return;
             }
 
-            // Fabrique et chargement du schéma XSD
-            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            // ====== CHARGEMENT DU XSD ======
+            SchemaFactory schemaFactory =
+                    SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = schemaFactory.newSchema(xsdFile);
 
-            // Configuration du parser SAX
+            // ====== CONFIGURATION PARSEUR SAX ======
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setNamespaceAware(true);
             factory.setSchema(schema);
 
             SAXParser parser = factory.newSAXParser();
+            XMLReader reader = parser.getXMLReader();
 
-            // Handler pour gérer les erreurs
-            DefaultHandler handler = new DefaultHandler() {
+            // ====== HANDLER DES STATISTIQUES ======
+            ImageSAXHandler statsHandler = new ImageSAXHandler();
+            reader.setContentHandler(statsHandler);
 
-                @Override
-                public void error(SAXParseException e) throws SAXException {
-                    System.err.println("ERROR");
-                    System.err.println("Ligne : " + e.getLineNumber() + ", Colonne : " + e.getColumnNumber());
-                    System.err.println("Message : " + e.getMessage());
+            // ====== HANDLER DES ERREURS ======
+            reader.setErrorHandler(new ErrorHandler() {
+
+                private String fmt(SAXParseException e) {
+                    return String.format("%s\nLigne %d, Colonne %d",
+                            e.getMessage(),
+                            e.getLineNumber(),
+                            e.getColumnNumber());
+                }
+
+                @Override public void warning(SAXParseException e) {
+                    System.err.println("WARNING : " + fmt(e));
+                }
+
+                @Override public void error(SAXParseException e) throws SAXException {
+                    System.err.println("ERROR : " + fmt(e));
                     throw e;
                 }
 
-                @Override
-                public void fatalError(SAXParseException e) throws SAXException {
-                    System.err.println("FATAL ERROR");
-                    System.err.println("Ligne : " + e.getLineNumber() + ", Colonne : " + e.getColumnNumber());
-                    System.err.println("Message : " + e.getMessage());
+                @Override public void fatalError(SAXParseException e) throws SAXException {
+                    System.err.println("FATAL ERROR : " + fmt(e));
                     throw e;
                 }
+            });
 
-                @Override
-                public void warning(SAXParseException e) throws SAXException {
-                    System.err.println("WARNING : " + e.getMessage());
-                }
-            };
+            // ====== PARSING + VALIDATION ======
+            reader.parse(xmlFile.toURI().toASCIIString());
+            System.out.println(" Validation XSD réussie ! XML conforme.\n");
 
-            // Lancer la validation
-            parser.parse(xmlFile, handler);
+            // ====== STATS ======
+            System.out.println("=== Statistiques SAX/XSD ===");
+            System.out.println("Images contenant 'loc right' : " +
+                    statsHandler.getLocRightCount());
 
-            System.out.println("Validation XSD réussie ! XML conforme.");
+            System.out.println("\nTop 10 labels :");
+            statsHandler.getLabelCount()
+                    .entrySet()
+                    .stream()
+                    .sorted((a, b) -> b.getValue() - a.getValue())
+                    .limit(10)
+                    .forEach(e ->
+                            System.out.println(" - " + e.getKey() + " : " + e.getValue())
+                    );
 
         } catch (Exception e) {
             System.err.println("SAXException : " + e.getMessage());

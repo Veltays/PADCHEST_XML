@@ -1,6 +1,5 @@
 package CsvConverterToXml;
 
-import java.io.FilterReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Set;
@@ -27,9 +26,6 @@ public class CsvParser {
             35  // LocalizationsCUIS
     );
 
-
-
-
     public static String[] GetAllHeaders(String headerLine) {
         String[] AllHeaders;
         String[] FilteredHeaders;
@@ -40,18 +36,13 @@ public class CsvParser {
         return FilteredHeaders;
     }
 
-
     public static String[] ParseLine(String line) {
-
-
         line = normalizePythonArray(line);
 
         String[] all = Spliter(line);
 
-
         return DeleteExcludedData(all);
     }
-
 
     public static String[] DeleteExcludedData(String[] dataLine) {
         ArrayList<String> filteredData = new ArrayList<>();
@@ -65,10 +56,10 @@ public class CsvParser {
         return filteredData.toArray(new String[0]);
     }
 
-
     public static String[] Spliter(String line) {
         ArrayList<String> mots = new ArrayList<>();
-        String mot = "";
+        StringBuilder mot = new StringBuilder();
+
         int tabLevel = 0;
         boolean inQuotes = false;
 
@@ -77,68 +68,51 @@ public class CsvParser {
 
             switch (c) {
                 case '"':
-                    // On inverse l'état (on entre ou on sort des guillemets)
-                    inQuotes = inQuotes ? false : true;
+                    inQuotes = !inQuotes;
                     break;
 
                 case '[':
-                    // On augmente le niveau si on est dans une structure imbriquée
                     tabLevel++;
-                    mot += c;
+                    mot.append(c);
                     break;
 
                 case ']':
-                    // On redescend d'un niveau
                     tabLevel = Math.max(0, tabLevel - 1);
-                    mot += c;
+                    mot.append(c);
                     break;
 
                 case ',':
-                    // On coupe seulement si on n’est pas dans un tableau ou dans des guillemets
                     if (!inQuotes && tabLevel == 0) {
-                        mots.add(mot.trim());
-                        mot = "";
+                        mots.add(mot.toString().trim());
+                        mot.setLength(0);
                     } else {
-                        mot += c;
+                        mot.append(c);
                     }
                     break;
 
                 default:
-                    // Tout le reste du texte est ajouté normalement
-                    mot += c;
+                    mot.append(c);
                     break;
             }
         }
 
-        // Ajouter le dernier mot si non vide
-        if (!mot.isEmpty()) {
-            mots.add(mot.trim());
+        if (mot.length() > 0) {
+            mots.add(mot.toString().trim());
         }
 
-        // Retourne le tableau final
         return mots.toArray(new String[0]);
     }
-
-
 
     private static String normalizePythonArray(String line) {
         // Corrige les retours à la ligne internes
         line = line.replace("\n", " ").replace("\r", " ");
 
-        // Convertit format Python:
-        // ['A' 'B' 'C'] → ['A','B','C']
+        // Convertit format Python: ['A' 'B' 'C'] → ['A','B','C']
         if (line.contains("['") && line.contains("' '")) {
-            // Remplace ' ' par ', '
             line = line.replace("' '", "', '");
         }
 
         return line;
     }
-
-
-
-
-
-
 
 }

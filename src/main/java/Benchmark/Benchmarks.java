@@ -8,6 +8,8 @@ import SAXParser.SAXParserXSDImages;
 import java.util.ArrayList;
 import java.util.List;
 
+import static CsvConverterToXml.Orchestre.convertCSVtoXML;
+
 public class Benchmarks {
 
     // Mesure mémoire
@@ -98,4 +100,30 @@ public class Benchmarks {
                 String.valueOf(memUsed)
         };
     }
+
+    // === Lancer le convertisseur seul ===
+    public static void runConverterOnly() {
+
+        int iterations = 10;
+        double totalSeconds = 0;
+
+        for (int i = 0; i < iterations; i++) {
+
+            long start = System.currentTimeMillis();
+
+            convertCSVtoXML();   // ⚡ relance la conversion complète
+
+            long end = System.currentTimeMillis();
+            double seconds = (end - start) / 1000.0;
+
+            totalSeconds += seconds;
+
+            System.out.println("Run " + (i + 1) + " terminé en " + seconds + " sec");
+        }
+
+        double average = totalSeconds / iterations;
+        System.out.println("\n=== Moyenne sur " + iterations + " runs : " + average + " secondes ===");
+    }
+
+
 }

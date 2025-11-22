@@ -3,6 +3,7 @@ package CsvConverterToXml;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MyFileReader {
 
@@ -19,7 +20,9 @@ public class MyFileReader {
             br = new BufferedReader(fileReader);
 
         } catch (IOException e) {
-            System.err.println("[MyFileReader] Erreur lors de l'ouverture du fichier : " + e.getMessage());
+            StringBuilder sb = new StringBuilder("[MyFileReader] Erreur lors de l'ouverture du fichier : ");
+            sb.append(e.getMessage());
+            System.err.println(sb);
         }
     }
 
@@ -29,25 +32,51 @@ public class MyFileReader {
                 br.close();
 
         } catch (IOException e) {
-            System.err.println("[MyFileReader] Erreur lors de la fermeture du fichier : " + e.getMessage());
+            StringBuilder sb = new StringBuilder("[MyFileReader] Erreur lors de la fermeture du fichier : ");
+            sb.append(e.getMessage());
+            System.err.println(sb);
         }
     }
 
-    public String readLine()
-    {
-        String ligne = null;
-
+    public String readLine() {
         try {
             if (br != null) {
-                ligne = br.readLine();
+                return br.readLine();
             } else {
                 System.err.println("[MyFileReader] Le fichier n'est pas ouvert.");
             }
         } catch (IOException e) {
-            System.err.println("[MyFileReader] Erreur lors de la lecture de la ligne : " + e.getMessage());
+            StringBuilder sb = new StringBuilder("[MyFileReader] Erreur lors de la lecture de la ligne : ");
+            sb.append(e.getMessage());
+            System.err.println(sb);
         }
 
-        return ligne;
+        return null;
     }
 
+    // ---------------------------------------------------------
+    // lit TOUTES les lignes du fichier
+    // ---------------------------------------------------------
+    public ArrayList<String> readAllLines() {
+        ArrayList<String> lines = new ArrayList<>();
+        String line;
+
+        try {
+            if (br == null) {
+                System.err.println("[MyFileReader] Le fichier n'est pas ouvert.");
+                return lines;
+            }
+
+            while ((line = br.readLine()) != null) {
+                lines.add(line);
+            }
+
+        } catch (IOException e) {
+            StringBuilder sb = new StringBuilder("[MyFileReader] Erreur lors de la lecture complète : ");
+            sb.append(e.getMessage());
+            System.err.println(sb);
+        }
+
+        return lines;
+    }
 }

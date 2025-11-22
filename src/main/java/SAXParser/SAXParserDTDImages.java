@@ -9,68 +9,48 @@ import org.xml.sax.*;
 public class SAXParserDTDImages {
 
     public static void main() {
+
         try {
-            // -----------------------------------------
-            // 1) Factory + Validation
-            // -----------------------------------------
             SAXParserFactory factory = SAXParserFactory.newInstance();
-            factory.setValidating(true);        // valide avec le DTD
+            factory.setValidating(true);
             factory.setNamespaceAware(true);
 
-            // -----------------------------------------
-            // 2) Création du parser SAX
-            // -----------------------------------------
             SAXParser sp = factory.newSAXParser();
             XMLReader reader = sp.getXMLReader();
 
-            // -----------------------------------------
-            // 3) Gestion des erreurs DÉTAILLÉE
-            // -----------------------------------------
+            // Handler de statistiques
+            ImageSAXHandler handler = new ImageSAXHandler();
+            reader.setContentHandler(handler);
+
+            // Gestion des erreurs
             reader.setErrorHandler(new ErrorHandler() {
-
-                private String formatError(SAXParseException e) {
-                    return String.format(
-                            "%s\n Ligne %d, Colonne %d\n Public ID : %s\n System ID : %s",
-                            e.getMessage(),
-                            e.getLineNumber(),
-                            e.getColumnNumber(),
-                            e.getPublicId(),
-                            e.getSystemId()
-                    );
+                private String fmt(SAXParseException e) {
+                    return String.format("%s\n Ligne %d, Colonne %d", e.getMessage(), e.getLineNumber(), e.getColumnNumber());
                 }
-
-                @Override
-                public void warning(SAXParseException e) {
-                    System.out.println("WARNING\n" + formatError(e));
-                }
-
-                @Override
-                public void error(SAXParseException e) throws SAXException {
-                    System.out.println("ERROR\n" + formatError(e));
-                    throw e;
-                }
-
-                @Override
-                public void fatalError(SAXParseException e) throws SAXException {
-                    System.out.println("FATAL ERROR\n" + formatError(e));
-                    throw e;
-                }
+                public void warning(SAXParseException e) { System.out.println("WARNING\n" + fmt(e)); }
+                public void error(SAXParseException e) throws SAXException { System.out.println("ERROR\n" + fmt(e)); throw e; }
+                public void fatalError(SAXParseException e) throws SAXException { System.out.println("FATAL\n" + fmt(e)); throw e; }
             });
 
-            // -----------------------------------------
-            // 4) Parsing du fichier XML
-            // -----------------------------------------
             System.out.println("Validation SAX + DTD en cours...");
             reader.parse("src/main/resources/PADCHEST.xml");
 
-            System.out.println("XML VALIDE selon le DTD !");
+            System.out.println("XML VALIDE selon le DTD !\n");
 
-        } catch (ParserConfigurationException e) {
-            System.out.println("ParserConfigurationException : " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IOException : " + e.getMessage());
-        } catch (SAXException e) {
-            System.out.println("SAXException : " + e.getMessage());
+            // Affichage des statistiques
+            System.out.println("=== Statistiques SAX/DTD ===");
+            System.out.println("Nombre d’images contenant 'loc right' : " + handler.getLocRightCount());
+
+            System.out.println("\nTop 10 des labels les plus fréquents :");
+            handler.getLabelCount()
+                    .entrySet()
+                    .stream()
+                    .sorted((a, b) -> b.getValue() - a.getValue())
+                    .limit(10)
+                    .forEach(e -> System.out.println(" - " + e.getKey() + " : " + e.getValue()));
+
+        } catch (ParserConfigurationException | IOException | SAXException e) {
+            System.out.println("Erreur SAX : " + e.getMessage());
         }
     }
 }
