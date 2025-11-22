@@ -4,6 +4,7 @@ import DOMParser.DOMParserDTDImages;
 import DOMParser.DOMParserXSDImages;
 import SAXParser.SAXParserDTDImages;
 import SAXParser.SAXParserXSDImages;
+import Utils.ProjectConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,14 +27,13 @@ public class Benchmarks {
 
         System.out.println("\n===== " + titre + " =====");
 
-        System.gc();
-        try {
-            Thread.sleep(200);
-        } catch
-        (Exception _)
-        {
-
+        if (ProjectConfig.getBool("benchmark.gc.enabled")) {
+            System.gc();
         }
+
+        try {
+            Thread.sleep(ProjectConfig.getInt("benchmark.sleep.ms"));
+        } catch (Exception _) {}
 
         long startTime = System.currentTimeMillis();
         long memBefore = getUsedMemory();
@@ -98,7 +98,7 @@ public class Benchmarks {
     // === Lancer le convertisseur seul ===
     public static void runConverterOnly() {
 
-        int iterations = 10;
+        int iterations = ProjectConfig.getInt("benchmark.iterations");;
         double totalSeconds = 0;
 
         for (int i = 0; i < iterations; i++) {

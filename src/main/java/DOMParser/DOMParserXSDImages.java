@@ -1,5 +1,6 @@
 package DOMParser;
 
+import Utils.ProjectConfig;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 import javax.xml.validation.*;
@@ -10,8 +11,8 @@ import java.util.*;
 
 public class DOMParserXSDImages {
 
-    static String xmlFile = "src/main/resources/PADCHEST.xml";
-    static String xsdFile = "src/main/resources/validator.xsd";
+    static String xmlFile = ProjectConfig.get("xml.output");
+    static String xsdFile = ProjectConfig.get("xsd.path");
     static boolean ignoreWhiteSpaces = true;
 
     public static void main() {
@@ -34,7 +35,7 @@ public class DOMParserXSDImages {
             DocumentBuilder builder = factory.newDocumentBuilder();
 
             builder.setErrorHandler(new ErrorHandler() {
-                public void warning(SAXParseException e) { System.out.println("⚠ WARNING : " + e.getMessage()); }
+                public void warning(SAXParseException e) { System.out.println("WARNING : " + e.getMessage()); }
                 public void error(SAXParseException e) throws SAXException {
                     System.out.println("ERROR : " + e.getMessage());
                     throw e;

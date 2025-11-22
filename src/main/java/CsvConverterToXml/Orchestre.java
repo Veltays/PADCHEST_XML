@@ -1,5 +1,6 @@
 package CsvConverterToXml;
 
+import Utils.ProjectConfig;
 import java.util.ArrayList;
 
 public class Orchestre {
@@ -17,7 +18,8 @@ public class Orchestre {
 
         try {
             // 1 - Lire CSV via MyFileReader
-            MyFileReader reader = new MyFileReader("src/main/resources/PADCHEST_chest_x_ray_images_labels_160K_01.02.19.csv");
+            String csvPath = ProjectConfig.get("csv.input");
+            MyFileReader reader = new MyFileReader(csvPath);
             reader.openFile();
             ArrayList<String> rawLines = reader.readAllLines();
             reader.closeFile();
@@ -26,16 +28,22 @@ public class Orchestre {
             ArrayList<String> fixedLines = CsvParser.fixBrokenLines(rawLines);
 
             // 3 - Écrire XML
-            MyFileWriter writer = new MyFileWriter("src/main/resources/PADCHEST.xml");
+            String xmlOutputPath = ProjectConfig.get("xml.output");
+            MyFileWriter writer = new MyFileWriter(xmlOutputPath);
             writer.openFile();
 
             writer.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-            writer.WriteLine("<!DOCTYPE Images SYSTEM \"validator.dtd\">");
 
+            // DTD configurable
+            String dtd = ProjectConfig.get("dtd.path");
+            writer.WriteLine("<!DOCTYPE Images SYSTEM \"" + dtd + "\">");
+
+            // Header XML
             String headerLine = fixedLines.getFirst();
             writer.setAllHeader(CsvParser.GetAllHeaders(headerLine));
             writer.WriteFirstBalise("Images");
 
+            // Process line by line
             for (int i = 1; i < fixedLines.size(); i++) {
                 String line = fixedLines.get(i);
                 if (line.trim().isEmpty()) continue;
@@ -55,7 +63,4 @@ public class Orchestre {
         long endTime = System.currentTimeMillis();
         System.out.println("\n[Timer] Conversion terminée en " + ((endTime - startTime) / 1000.0) + " secondes.");
     }
-
-
-
 }

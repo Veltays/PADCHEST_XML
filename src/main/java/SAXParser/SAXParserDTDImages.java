@@ -4,6 +4,8 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
+import Utils.ProjectConfig;
 import org.xml.sax.*;
 
 public class SAXParserDTDImages {
@@ -33,7 +35,7 @@ public class SAXParserDTDImages {
             });
 
             System.out.println("Validation SAX + DTD en cours...");
-            reader.parse("src/main/resources/PADCHEST.xml");
+            reader.parse(ProjectConfig.get("xml.output"));
 
             System.out.println("XML VALIDE selon le DTD !\n");
 

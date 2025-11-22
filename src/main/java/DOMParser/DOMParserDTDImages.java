@@ -1,5 +1,6 @@
 package DOMParser;
 
+import Utils.ProjectConfig;
 import org.w3c.dom.*;
 import org.xml.sax.*;
 import javax.xml.parsers.*;
@@ -10,7 +11,7 @@ import java.util.*;
 
 
 public class DOMParserDTDImages {
-    static String xmlFile = "src/main/resources/PADCHEST.xml";
+    static String xmlFile = ProjectConfig.get("xml.output");
     static boolean ignoreWhiteSpaces = true;
 
     public static void main() {

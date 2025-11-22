@@ -1,5 +1,6 @@
 package SAXParser;
 
+import Utils.ProjectConfig;
 import org.xml.sax.*;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParser;
@@ -15,8 +16,8 @@ public class SAXParserXSDImages {
 
         try {
             // ====== FICHIERS ======
-            File xsdFile = new File("src/main/resources/validator.xsd");
-            File xmlFile = new File("src/main/resources/PADCHEST.xml");
+            File xsdFile = new File(ProjectConfig.get("xsd.path"));
+            File xmlFile = new File(ProjectConfig.get("xml.output"));
 
             if (!xsdFile.exists() || !xmlFile.exists()) {
                 System.err.println("ERREUR : Fichier introuvable !");
