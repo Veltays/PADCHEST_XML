@@ -8,7 +8,7 @@ import org.xml.sax.*;
 
 public class SAXParserDTDImages {
 
-    public static void main(String[] args) {
+    public static void main() {
         try {
             // -----------------------------------------
             // 1) Factory + Validation
@@ -30,7 +30,7 @@ public class SAXParserDTDImages {
 
                 private String formatError(SAXParseException e) {
                     return String.format(
-                            "%s\n➡ Ligne %d, Colonne %d\n➡ Public ID : %s\n➡ System ID : %s",
+                            "%s\n Ligne %d, Colonne %d\n Public ID : %s\n System ID : %s",
                             e.getMessage(),
                             e.getLineNumber(),
                             e.getColumnNumber(),
@@ -41,18 +41,18 @@ public class SAXParserDTDImages {
 
                 @Override
                 public void warning(SAXParseException e) {
-                    System.out.println("⚠️ WARNING\n" + formatError(e));
+                    System.out.println("WARNING\n" + formatError(e));
                 }
 
                 @Override
                 public void error(SAXParseException e) throws SAXException {
-                    System.out.println("❌ ERROR\n" + formatError(e));
+                    System.out.println("ERROR\n" + formatError(e));
                     throw e;
                 }
 
                 @Override
                 public void fatalError(SAXParseException e) throws SAXException {
-                    System.out.println("💀 FATAL ERROR\n" + formatError(e));
+                    System.out.println("FATAL ERROR\n" + formatError(e));
                     throw e;
                 }
             });
@@ -60,10 +60,10 @@ public class SAXParserDTDImages {
             // -----------------------------------------
             // 4) Parsing du fichier XML
             // -----------------------------------------
-            System.out.println("🔍 Validation SAX + DTD en cours...");
+            System.out.println("Validation SAX + DTD en cours...");
             reader.parse("src/main/resources/PADCHEST.xml");
 
-            System.out.println("✅ XML VALIDE selon le DTD !");
+            System.out.println("XML VALIDE selon le DTD !");
 
         } catch (ParserConfigurationException e) {
             System.out.println("ParserConfigurationException : " + e.getMessage());

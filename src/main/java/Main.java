@@ -1,11 +1,12 @@
 import java.util.Scanner;
 
 // Imports vers tes classes (à adapter selon leur package réel)
+import Benchmark.Benchmarks;
 import CsvConverterToXml.Orchestre;
+import DOMParser.DOMParserXSDImages;
 import SAXParser.SAXParserDTDImages;
 import SAXParser.SAXParserXSDImages;
-// import SAXParser.SAXParserXSDImages;
-// import DOMParser.DOMParserDTDImages;
+import DOMParser.DOMParserDTDImages;
 // import DOMParser.DOMParserXSDImages;
 
 public class Main {
@@ -23,6 +24,7 @@ public class Main {
             System.out.println("3. Lancer SAX (validation XSD)");
             System.out.println("4. Lancer DOM (validation DTD)");
             System.out.println("5. Lancer DOM (validation XSD)");
+            System.out.println("6. Lancer Test Comparatif (validation DTD/XSD)");
             System.out.println("0. Quitter");
             System.out.print("Votre choix : ");
 
@@ -36,25 +38,25 @@ public class Main {
 
                 case 2:
                     System.out.println("→ Lancement du parser SAX avec DTD...");
-                    SAXParserDTDImages.main(null);
+                    Benchmarks.run("SAX + DTD", () -> SAXParserDTDImages.main());
                     break;
 
                 case 3:
                     System.out.println("→ Lancement du parser SAX avec XSD...");
-                    SAXParserXSDImages.main();
-                    System.out.println("Parser XSD pas encore implémenté !");
+                    Benchmarks.run("SAX + XSD", () -> SAXParserXSDImages.main());
                     break;
 
                 case 4:
-                    System.out.println("Lancement du parser DOM avec DTD...");
-                    // DOMParserDTDImages.main(null);
-                    System.out.println("Parser DOM DTD pas encore implémenté !");
+                    Benchmarks.run("DOM + DTD", () -> DOMParserDTDImages.main());
                     break;
 
                 case 5:
-                    System.out.println("Lancement du parser DOM avec XSD...");
-                    // DOMParserXSDImages.main(null);
-                    System.out.println("Parser DOM XSD pas encore implémenté !");
+                    Benchmarks.run("DOM + XSD", () -> DOMParserXSDImages.main());
+                    break;
+
+                case 6:
+                    System.out.println("→ Lancement des benchmarks...");
+                    Benchmark.Benchmarks.runAll();
                     break;
 
                 case 0:
@@ -68,5 +70,10 @@ public class Main {
         }
 
         sc.close();
+    }
+
+    public static long getUsedMemory() {
+        Runtime runtime = Runtime.getRuntime();
+        return runtime.totalMemory() - runtime.freeMemory();
     }
 }
