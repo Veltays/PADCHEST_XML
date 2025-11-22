@@ -61,7 +61,7 @@ public class DOMParserXSDImages {
             for (int i = 0; i < listImages.getLength(); i++) {
                 Element img = (Element) listImages.item(i);
 
-                String id = img.getAttribute("Identifiant");
+
 
                 // === LOCALIZATIONS ===
                 NodeList locs = img.getElementsByTagName("Localization");

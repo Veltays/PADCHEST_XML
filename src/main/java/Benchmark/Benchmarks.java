@@ -24,7 +24,10 @@ public class Benchmarks {
         System.out.println("\n===== " + titre + " =====");
 
         System.gc();
-        try { Thread.sleep(200); } catch (Exception e) {}
+        try {
+            Thread.sleep(200);
+        } catch (Exception _)
+        {}
 
         long startTime = System.currentTimeMillis();
         long memBefore = getUsedMemory();
@@ -46,10 +49,10 @@ public class Benchmarks {
         // Tableau interne de stockage des résultats
         List<String[]> results = new ArrayList<>();
 
-        results.add(runWithResult("SAX + DTD", () -> SAXParserDTDImages.main()));
-        results.add(runWithResult("SAX + XSD", () -> SAXParserXSDImages.main()));
-        results.add(runWithResult("DOM + DTD", () -> DOMParserDTDImages.main()));
-        results.add(runWithResult("DOM + XSD", () -> DOMParserXSDImages.main()));
+        results.add(runWithResult("SAX + DTD", SAXParserDTDImages::main));
+        results.add(runWithResult("SAX + XSD", SAXParserXSDImages::main));
+        results.add(runWithResult("DOM + DTD", DOMParserDTDImages::main));
+        results.add(runWithResult("DOM + XSD", DOMParserXSDImages::main));
 
         // Affichage propre
         System.out.println("\n============================================");
@@ -74,7 +77,13 @@ public class Benchmarks {
         System.out.println("\n===== " + titre + " =====");
 
         System.gc();
-        try { Thread.sleep(200); } catch (Exception e) {}
+        try {
+            Thread.sleep(200);
+        } catch
+        (Exception _)
+        {
+
+        }
 
         long startTime = System.currentTimeMillis();
         long memBefore = getUsedMemory();
@@ -111,7 +120,7 @@ public class Benchmarks {
 
             long start = System.currentTimeMillis();
 
-            convertCSVtoXML();   // ⚡ relance la conversion complète
+            convertCSVtoXML();   // relance la conversion complète
 
             long end = System.currentTimeMillis();
             double seconds = (end - start) / 1000.0;

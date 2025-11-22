@@ -4,8 +4,6 @@ import org.w3c.dom.*;
 import org.xml.sax.*;
 import javax.xml.parsers.*;
 import javax.xml.transform.*;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.dom.DOMSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -52,8 +50,6 @@ public class DOMParserDTDImages {
             // ==== PARCOURIR CHAQUE IMAGE ====
             for (int i = 0; i < listImages.getLength(); i++) {
                 Element img = (Element) listImages.item(i);
-
-                String id = img.getAttribute("Identifiant");
 
                 // ==== LOCALIZATIONS ====
                 NodeList locs = img.getElementsByTagName("Localization");

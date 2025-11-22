@@ -13,7 +13,7 @@ public class MyFileWriter {
 
 
 
-    /************************************************************************/
+    /**********************************************************************/
     /* Constructeur et Acesseur                                            */
     /***********************************************************************/
 
@@ -231,7 +231,7 @@ public class MyFileWriter {
     {
         char c;
         int i = 0;
-        String Tab1 ="";
+        StringBuilder Tab1 = new StringBuilder();
         ArrayList<String> TableauListe = new ArrayList<>();
 
         while(i < line.length() )
@@ -239,12 +239,12 @@ public class MyFileWriter {
             while(((c = line.charAt(i)) != ']'))
             {
                 i++;
-                Tab1 += c;
+                Tab1.append(c);
             }
-            Tab1 += c;
+            Tab1.append(c);
             i++;
-            TableauListe.add(Tab1);
-            Tab1 = "";
+            TableauListe.add(Tab1.toString());
+            Tab1 = new StringBuilder();
         }
 
 

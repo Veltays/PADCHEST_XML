@@ -8,7 +8,7 @@ import java.util.Map;
 public class ImageSAXHandler extends DefaultHandler {
 
     private int locRightCount = 0;
-    private Map<String, Integer> labelCount = new HashMap<>();
+    private final Map<String, Integer> labelCount = new HashMap<>();
 
     private boolean insideLocalization = false;
     private boolean insideLabel = false;

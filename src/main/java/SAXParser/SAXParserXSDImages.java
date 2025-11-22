@@ -1,8 +1,6 @@
 package SAXParser;
 
 import org.xml.sax.*;
-import org.xml.sax.helpers.DefaultHandler;
-
 import javax.xml.XMLConstants;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
