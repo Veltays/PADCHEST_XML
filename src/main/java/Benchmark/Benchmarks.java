@@ -26,7 +26,7 @@ public class Benchmarks {
 
 
         System.out.println("\n===== " + titre + " =====");
-
+        //garbage collector avant le test
         if (ProjectConfig.getBool("benchmark.gc.enabled")) {
             System.gc();
         }
@@ -105,7 +105,7 @@ public class Benchmarks {
 
             long start = System.currentTimeMillis();
 
-            convertCSVtoXML();   // relance la conversion complète
+            convertCSVtoXML(0);   // relance la conversion complète
 
             long end = System.currentTimeMillis();
             double seconds = (end - start) / 1000.0;

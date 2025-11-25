@@ -24,6 +24,7 @@ public class Main {
             System.out.println("5. Lancer DOM (validation XSD)");
             System.out.println("6. Lancer Test Comparatif (validation DTD/XSD)");
             System.out.println("7. Lancer statistique Convertisseur CSV → XML");
+            System.out.println("8. Lancer XSLT");
 
             System.out.println("0. Quitter");
             System.out.print("Votre choix : ");
@@ -33,7 +34,7 @@ public class Main {
             switch (choix) {
                 case 1:
                     System.out.println("→ Lancement du convertisseur CSV → XML...");
-                    Orchestre.main();   // à adapter selon ton code
+                    Orchestre.convertCSVtoXML(0);   // à adapter selon ton code
                     break;
 
                 case 2:
@@ -63,6 +64,12 @@ public class Main {
                     Benchmark.Benchmarks.runConverterOnly();
                     break;
 
+                case 8:
+                    System.out.println("→ Lancement du convertisseur CSV → XML avec en-tête XSLT...");
+                    System.out.println("Veuillez entrer le niveau XSLT (1: minimum, 2: pro, 3: experts) : ");
+                    Scanner sc2 = new Scanner(System.in);
+                    Orchestre.convertCSVtoXML(sc2.nextInt());
+                    break;
                 case 0:
                     System.out.println("Au revoir !");
                     break;

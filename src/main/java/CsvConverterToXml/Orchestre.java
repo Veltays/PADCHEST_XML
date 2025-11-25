@@ -5,14 +5,11 @@ import java.util.ArrayList;
 
 public class Orchestre {
 
-    public static void main() {
-        convertCSVtoXML();
-    }
 
     // ---------------------------------------------------------------------
     // === Conversion CSV → XML ===
     // ---------------------------------------------------------------------
-    public static void convertCSVtoXML() {
+    public static void convertCSVtoXML(int niveauXSLT) {
 
         long startTime = System.currentTimeMillis();
 
@@ -33,6 +30,24 @@ public class Orchestre {
             writer.openFile();
 
             writer.WriteLine("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+
+            switch(niveauXSLT)
+            {
+                case 1:
+                    writer.WriteLine("<?xml-stylesheet href=\"XSLT/minimum/style.xsl\" type=\"text/xsl\"?>");
+                    break;
+                case 2:
+                    writer.WriteLine("<?xml-stylesheet href=\"XSLT/pros/style.xsl\" type=\"text/xsl\"?>");
+                    break;
+                case 3:
+                    writer.WriteLine("<?xml-stylesheet href=\"XSLT/experts/style.xsl\" type=\"text/xsl\"?>");
+                    break;
+                default:
+
+                    break;
+            }
+
+
 
             // DTD configurable
             String dtd = ProjectConfig.get("dtd.path");
