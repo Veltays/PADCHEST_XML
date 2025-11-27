@@ -1,0 +1,15 @@
+POST http://admin:2503@localhost:8080/rest/PADCHESTDB
+Content-Type: application/xml
+
+<query xmlns="http://basex.org/rest">
+    <text>
+        let $all-images := /Images/image
+        let $filtered :=
+        for $image in $all-images
+        let $locs := $image/Localizations/Localization
+        where $locs = "loc right"
+        return $image
+
+        return count($filtered)
+    </text>
+</query>
