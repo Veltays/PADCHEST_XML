@@ -1,24 +1,83 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>PadChest – Version Expert</title>
-    <link rel="stylesheet" href="./style.css">
-    <script src="./js/LoaderXML.js" defer></script>
-    <script src="./js/pagination.js" defer></script>
-</head>
-<body>
-    <h1>PadChest – Version Expert</h1>
+    <head>
+        <meta charset="UTF-8">
+        <title>PadChest – Version Expert</title>
+        <link rel="stylesheet" href="./style.css">
+        <script src="./js/LoaderXML.js" defer></script>
+        <script src="./js/pagination.js" defer></script>
+        <script src="js/Selecteur.js" defer></script>
+        <script src="js/SearchBar.js" defer></script>
+        <script src="js/FetchDataBaseX.js" defer></script>
+    </head>
+    <body>
+        <h1>PadChest – Version Expert</h1>
 
-    <div id="controls">
-        <button id="prev-btn">◀ Page précédente</button>
-        <span id="page-info"></span>
-        <button id="next-btn">Page suivante ▶</button>
-    </div>
+        <div id="queries">
+            <button id="NB_OF_LOC_RIGHT">
+                Requete : nombre d'occurrence de "loc right"
+            </button>
 
-    <div id="table-container">
-        <p>Chargement des données...</p>
-    </div>
+            <button id="NB_OF_MOST_SEEN_LABEL">
+                Requete : labels les plus vus
+            </button>
+        </div>
 
-</body>
+
+
+
+        <div id="controls">
+            <button id="prev-btn">◀ Page précédente</button>
+            <button id="next-btn">Page suivante ▶</button>
+        </div>
+
+        <div id="column-selector">
+            <h3>Colonnes à afficher</h3>
+
+            <span id="column-loading" style="
+                display:none;
+                padding: 4px 8px;
+                background: #444;
+                color: white;
+                border-radius: 4px;
+                margin-right: 10px;
+            ">
+                Chargement...
+            </span>
+
+            <div id="checkbox-columns"></div>
+        </div>
+
+        <div id="search-container">
+            <h3>Recherche</h3>
+
+            <label for="search-column">Colonne :</label>
+            <select id="search-column">
+                <option value="">-- choisir une colonne --</option>
+                <option value="Column1">"@Identifiant"/></option>
+                <option value="Column2">"ImageID"/></option>
+                <option value="Column3">"ImageDir"/></option>
+                <option value="Column4">"StudyID"/></option>
+                <option value="Column5">"PatientID"/></option>
+                <option value="Column6">"PatientBirth"/></option>
+                <option value="Column7">"Projection"/></option>
+                <option value="Column8">"MethodProjection"/></option>
+                <option value="Column9">"Pediatric"/></option>
+                <option value="Column10">"ReportID"/></option>
+                <option value="Column11">"Report"/></option>
+                <option value="Column12">"MethodLabel"/></option>
+            </select>
+
+            <label for="search-input">Contient :</label>
+            <input type="text" id="search-input" placeholder="Tape ici..." />
+
+            <button id="search-btn">Rechercher</button>
+            <button id="search-reset">Réinitialiser</button>
+        </div>
+
+        <div id="table-container">
+            <p>Chargement des données...</p>
+        </div>
+
+    </body>
 </html>

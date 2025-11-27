@@ -38,3 +38,38 @@ td {
 tr:nth-child(even) {
     background: #eee;
 }
+
+
+/* Column Selector */
+
+#column-selector {
+    background: white;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+}
+#column-selector h3 {
+    margin-top: 0;
+}
+
+#checkbox-columns label {
+    display: inline-block;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+
+
+/* Search Container */
+
+#search-container {
+    background: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+#search-container select,
+#search-container input {
+    margin-right: 10px;
+}
