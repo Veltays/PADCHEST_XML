@@ -31,19 +31,20 @@ Interface complète avec pagination, tri, filtres, recherche, et sélection dyna
 http://localhost:63342/Projet_XML/src/main/resources/XSLT/experts/index.html
 
 
-🔥 Partie Expert — Important
+** 🔥 Partie Expert — Important **
 
 La partie Expert utilise un petit serveur Node.js comme proxy pour envoyer les requêtes XQuery à BaseX.
 
 👉 Avant d’utiliser les boutons Expert sur le site, il faut lancer le serveur Node :
-
+```
 node proxy-basex.js
-
+```
 
 Une fois lancé, le proxy fonctionne sur :
 
+```
 http://localhost:3001/xquery
-
+```
 
 Et la partie Expert du site marchera normalement.
 
