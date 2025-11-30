@@ -158,7 +158,7 @@ public class MyFileWriter {
         for (String value : values) {
             value = value.trim();
 
-            // 🔥 Traitement spécial pour NAN
+            // Traitement spécial pour NAN
             if (value.equalsIgnoreCase("nan")) {
                 WriteLine("<" + tag + "/>");
                 continue;

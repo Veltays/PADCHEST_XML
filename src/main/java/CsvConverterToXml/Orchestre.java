@@ -34,13 +34,13 @@ public class Orchestre {
             switch(niveauXSLT)
             {
                 case 1:
-                    writer.WriteLine("<?xml-stylesheet href=\"XSLT/minimum/style.xsl\" type=\"text/xsl\"?>");
+                    writer.WriteLine("<?xml-stylesheet href=\"../java/XSLT/minimum/style.xsl\" type=\"text/xsl\"?>");
                     break;
                 case 2:
-                    writer.WriteLine("<?xml-stylesheet href=\"XSLT/pros/style.xsl\" type=\"text/xsl\"?>");
+                    writer.WriteLine("<?xml-stylesheet href=\"../java/XSLT/pros/style.xsl\" type=\"text/xsl\"?>");
                     break;
                 case 3:
-                    writer.WriteLine("<?xml-stylesheet href=\"XSLT/experts/style.xsl\" type=\"text/xsl\"?>");
+                    writer.WriteLine("<?xml-stylesheet href=\"../java/XSLT/experts/style.xsl\" type=\"text/xsl\"?>");
                     break;
                 default:
 
@@ -61,7 +61,8 @@ public class Orchestre {
             // Process line by line
             for (int i = 1; i < fixedLines.size(); i++) {
                 String line = fixedLines.get(i);
-                if (line.trim().isEmpty()) continue;
+                if (line.trim().isEmpty())
+                    continue;
 
                 String[] parsed = CsvParser.ParseLine(line);
                 writer.WriteXMLLine(parsed);
