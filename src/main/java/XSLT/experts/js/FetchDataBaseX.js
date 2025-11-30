@@ -47,34 +47,21 @@ async function fetchLocRight() {
 async function fetchMostSeenLabels() {
 
     const queryXML = `
-        <query xmlns="http://basex.org/rest">
-        <text><![CDATA[
-            let $all-images := /Images/image
-
-            let $all-labels :=
-                for $image in $all-images
-                let $labels := $image/Labels/Label/text()
-                return $labels
-
-            let $unique-labels := distinct-values($all-labels)
-
-            let $frequencies :=
-                for $unique in $unique-labels
-                let $count :=
-                    count(
-                        for $label in $all-labels
-                        where $label = $unique
-                        return $label
-                    )
-                order by $count descending
-                return
+           <query xmlns="http://basex.org/rest">
+            <text><![CDATA[
+                let $res :=
+                  for $label in /Images/image/Labels/Label/text()
+                  group by $name := $label
+                  let $count := count($label)
+                  order by $count descending
+                  return
                     <label>
-                        <name>{$unique}</name>
-                        <count>{$count}</count>
+                      <name>{$name}</name>
+                      <count>{$count}</count>
                     </label>
-
-            return subsequence($frequencies, 1, 10)
-        ]]></text>
+                return subsequence($res, 1, 10)
+          ]]>
+          </text>
         </query>
     `;
 
