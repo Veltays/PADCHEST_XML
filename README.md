@@ -12,7 +12,7 @@ Chaque niveau correspond à un fichier XSL et à une interface différente.
 Affichage brut du document XML.
 
 **URL :**  
-http://localhost:63342/Projet_XML/src/main/resources/PADCHEST.xml
+http://localhost:63342/PADCHEST_XML/Projet_XML/PADCHEST.xml
 
 ---
 
@@ -20,7 +20,7 @@ http://localhost:63342/Projet_XML/src/main/resources/PADCHEST.xml
 Transformation XSLT plus structurée (table + styles).
 
 **URL :**  
-http://localhost:63342/Projet_XML/src/main/resources/PADCHEST.xml
+http://localhost:63342/PADCHEST_XML/Projet_XML/PADCHEST.xml
 
 ---
 
@@ -101,7 +101,7 @@ Le mode **Expert** propose une interface avancée offrant :
 ## 🗄️ 5. BaseX — Intégration XQuery
 
 ### 🔐 URL d’accès BaseX REST :
-http://localhost:8080/rest/PADCHESTDB
+http://localhost:8080/rest/PADCHEST
 
 ### 📁 Requêtes disponibles (mode Pro/BaseX)
 Fichiers HTML disponibles dans :
