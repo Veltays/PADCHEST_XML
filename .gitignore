@@ -3,3 +3,6 @@ target/
 .env
 src/main/resources/PADCHEST.xml
 src/main/resources/PADCHEST_chest_x_ray_images_labels_160K_01.02.19.csv
+
+
+src/main/java/XSLT/experts/backend/node_modules
